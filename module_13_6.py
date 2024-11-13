@@ -16,7 +16,14 @@ button = InlineKeyboardMarkup(text = "Рассчитать норму калор
 button2 = InlineKeyboardMarkup(text = "Формулы расчёта", callback_data = 'formulas')
 kb.add(button, button2)
 
-
+online_menu = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text='Информация'),
+            KeyboardButton(text='Рассчитать')
+        ]
+    ], resize_keyboard=True
+)
 class UserState(StatesGroup):
     age = State()
     growth = State()
@@ -54,7 +61,7 @@ async def send_calories(message, state):
 
 @dp.message_handler(text = 'Рассчитать')
 async def main_menu(message):
-    await message.answer('Выберите опцию:')
+    await message.answer('Выберите опцию:', reply_markup = online_menu)
 
 
 @dp.callback_query_handler(text = 'formulas')
